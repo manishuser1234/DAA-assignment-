@@ -1,0 +1,28 @@
+import sys
+
+def minCoins(coins, M, V):
+    # Initialize dp array with infinity (sys.maxsize)
+    dp = [sys.maxsize] * (V + 1)
+
+    # Base case: 0 coins are needed to make value 0
+    dp[0] = 0
+
+    # Compute minimum coins required for all values from 1 to V
+    for i in range(1, V + 1):
+        # Try every coin denomination
+        for j in range(M):
+            if coins[j] <= i:  # If the coin value is less than or equal to i
+                sub_res = dp[i - coins[j]]  # Check the result of the remaining value
+                if sub_res != sys.maxsize and sub_res + 1 < dp[i]:
+                    dp[i] = sub_res + 1
+
+    # Return the result for value V, or -1 if not possible
+    return dp[V] if dp[V] != sys.maxsize else -1
+
+# Example usage:
+coins = [1, 2, 5]  # Available coin denominations
+V = 11  # Total value
+M = len(coins)
+
+result = minCoins(coins, M, V)
+print(f"Minimum coins required: {result}")
