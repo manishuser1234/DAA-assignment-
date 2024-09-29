@@ -1,0 +1,30 @@
+def lemonadeChange(bills):
+    # Initialize counts of $5 and $10 bills
+    five, ten = 0, 0
+
+    for bill in bills:
+        if bill == 5:
+            five += 1  # We get a $5 bill
+        elif bill == 10:
+            if five > 0:  # We need to give $5 as change
+                five -= 1
+                ten += 1  # We get a $10 bill
+            else:
+                return False  # Can't give $5 as change
+        else:  # bill == 20
+            # Try to give one $10 and one $5 as change
+            if ten > 0 and five > 0:
+                ten -= 1
+                five -= 1
+            # Otherwise, try to give three $5 bills as change
+            elif five >= 3:
+                five -= 3
+            else:
+                return False  # Can't give proper change
+
+    return True
+
+# Example usage:
+bills = [5, 5, 5, 10, 20]  # Example list of bills
+result = lemonadeChange(bills)
+print(f"Can provide correct change: {result}")
