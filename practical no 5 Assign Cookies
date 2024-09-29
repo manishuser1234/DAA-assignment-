@@ -1,0 +1,48 @@
+
+def find_content_children(greed, cookies):
+    # Sort the greed factors and cookie sizes
+    greed.sort()
+    cookies.sort()
+
+    # Initialize pointers for greed and cookies arrays
+    child = 0
+    cookie = 0
+
+    # Count the number of content children
+    content_children = 0
+
+    # Loop until we either run out of children or cookies
+    while child < len(greed) and cookie < len(cookies):
+        if cookies[cookie] >= greed[child]:
+            # If the current cookie can satisfy the current child
+            content_children += 1
+            child += 1  # Move to the next child
+
+        # Move to the next cookie (whether it was assigned or not)
+        cookie += 1
+
+    return content_children
+
+# Example usage
+if __name__ == "__main__":
+    greed_factors = [1, 2, 3]
+    cookie_sizes = [1, 1]
+
+    result = find_content_children(greed_factors, cookie_sizes)
+    print(f"Number of content children: {result}")
+Explanation:
+Sorting:
+
+Both the greed and cookies arrays are sorted in non-decreasing order to ensure that we can efficiently assign cookies using a greedy approach.
+Greedy Matching:
+
+We use two pointers, child and cookie. The child pointer iterates through the children (based on their greed factors), and the cookie pointer iterates through the cookies (based on their sizes).
+If the current cookie size is greater than or equal to the current child’s greed factor, we assign the cookie to the child and increment the count of content children.
+Result:
+
+The function returns the maximum number of children that can be made content with the available cookies.
+Example:
+python
+Copy code
+greed_factors = [1, 2, 3]
+cookie_sizes = [1, 1]
