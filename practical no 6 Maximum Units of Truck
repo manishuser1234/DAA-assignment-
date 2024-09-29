@@ -1,0 +1,25 @@
+def maximumUnits(boxTypes, truckSize):
+    # Sort the boxTypes by number of units per box in descending order
+    boxTypes.sort(key=lambda x: x[1], reverse=True)
+
+    # Initialize total units to 0
+    total_units = 0
+
+    # Loop through the sorted boxTypes
+    for numberOfBoxes, unitsPerBox in boxTypes:
+        # Take as many boxes as possible
+        if truckSize >= numberOfBoxes:
+            total_units += numberOfBoxes * unitsPerBox
+            truckSize -= numberOfBoxes
+        else:
+            total_units += truckSize * unitsPerBox  # Take remaining space
+            break  # Truck is full
+
+    return total_units
+
+# Example usage:
+boxTypes = [[1, 3], [2, 2], [3, 1]]  # [numberOfBoxes, unitsPerBox]
+truckSize = 4
+
+result = maximumUnits(boxTypes, truckSize)
+print(f"Maximum units on the truck: {result}")
